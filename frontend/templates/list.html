@@ -67,7 +67,11 @@
       var wrapper = document.getElementById('list-wrapper')
       wrapper.innerHTML = ''
       var url = 'https://flutter-restful-api.herokuapp.com/api/v1/task-list/'
-      fetch(url)
+      fetch(url, {
+	mode: 'cors',
+	headers: {
+	'Access-Control-Allow-Origin':'*'
+	})
       .then((resp) => resp.json())
       .then(function (data) {
         console.log("Data", data)
