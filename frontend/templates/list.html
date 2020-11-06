@@ -10,7 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="stylesheet" href="{% static '/rest_framework/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     </head>
     <body>     
           <main role="main" class="container">
@@ -29,7 +29,7 @@
                 </form>
 
 
-              <h3>Tasks</h3>
+              <h3>Todo:</h3>
               <ul class="list-group" id="list-wrapper">
                 
               </ul>       
@@ -74,9 +74,13 @@
         var list =data
         for (var i in list){
           var item = ` 
-          <li id="data-row-$${list[i].id}" class="list-group-item title"><h5><b>${list[i].title}</b></h5> - ${list[i].description} 
-          <button class="btn btn-danger btn-sm btn pull-right delete" >Delete</button>
-          <button class="btn btn-success btn-sm btn pull-right edit">Update</button>
+          <li id="data-row-$${list[i].id}" class="list-group-item title">
+          <button class="btn btn-danger btn-sm btn delete" >Delete</button>
+          <button class="btn btn-success btn-sm btn edit">Update</button>
+          <h4><b>${list[i].title}</b></h4>
+ 
+          <b>- ${list[i].description} 
+
           
           </li>
           `
