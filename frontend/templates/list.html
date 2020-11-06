@@ -152,7 +152,7 @@
 		}
     function deleteItem(item){
 			console.log('Delete clicked')
-			fetch(`https://flutter-restful-api.herokuapp.com/${item.id}/`, {
+			fetch(`https://flutter-restful-api.herokuapp.com/api/v1/${item.id}/`, {
 				method:'DELETE', 
 				headers:{
 					'Content-type':'application/json',
