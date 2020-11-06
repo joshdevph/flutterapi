@@ -74,10 +74,47 @@
         var list =data
         for (var i in list){
           var item = ` 
-          <li id="data-row-$${list[i].id}" class="list-group-item"><h5><b>${list[i].title}</b></h5> - ${list[i].description} <button>Edit</button></li>
+          <li id="data-row-$${list[i].id}" class="list-group-item title"><h5><b>${list[i].title}</b></h5> - ${list[i].description} 
+          <button class="btn btn-danger btn-sm btn pull-right delete" >Delete</button>
+          <button class="btn btn-success btn-sm btn pull-right edit">Update</button>
+          
+          </li>
           `
           wrapper.innerHTML += item
         }
+				for (var i in list){
+					var editBtn = document.getElementsByClassName('edit')[i]
+					var deleteBtn = document.getElementsByClassName('delete')[i]
+					var title = document.getElementsByClassName('title')[i]
+
+
+					editBtn.addEventListener('click', (function(item){
+						return function(){
+							editItem(item)
+						}
+					})(list[i]))
+
+
+					deleteBtn.addEventListener('click', (function(item){
+						return function(){
+							var answer = confirm("Do you want to delete this Task?")
+              if(answer == 1){
+                deleteItem(item)
+              }
+						}
+					})(list[i]))
+
+
+
+					
+					// title.addEventListener('click', (function(item){
+					// 	return function(){
+					// 		strikeUnstrike(item)
+					// 	}
+					// })(list[i]))
+
+
+				}
       })
     }
    
@@ -87,7 +124,13 @@
 		form.addEventListener('submit', function(e){
 			e.preventDefault()
 			console.log('Form submitted')
+
 			var url = 'http://127.0.0.1:8000/api/v1/task-create/'
+      if (activeItem != null){
+				var url = `http://127.0.0.1:8000/api/v1/task-update/${activeItem.id}/`
+				activeItem = null
+			}
+
       var title = document.getElementById('title').value
       var description = document.getElementById('description').value
 			fetch(url, {
@@ -101,8 +144,26 @@
 			).then(function(response){
 				buildList()
 				document.getElementById('form').reset()
-      }
-      )
+      })
 		})
+
+    function editItem(item){
+			console.log('Item clicked:', item)
+			activeItem = item
+			document.getElementById('title').value = activeItem.title
+      document.getElementById('description').value = activeItem.description
+		}
+    function deleteItem(item){
+			console.log('Delete clicked')
+			fetch(`http://127.0.0.1:8000/api/v1/task-delete/${item.id}/`, {
+				method:'DELETE', 
+				headers:{
+					'Content-type':'application/json',
+					'X-CSRFToken':csrftoken,
+				}
+			}).then((response) => {
+				buildList()
+			})
+		}
 
  </script>
