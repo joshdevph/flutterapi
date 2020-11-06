@@ -66,7 +66,7 @@
     function buildList(){
       var wrapper = document.getElementById('list-wrapper')
       wrapper.innerHTML = ''
-      var url = 'https://flutter-restful-api.herokuapp.com/api/v1/task-list/'
+      var url = 'https://flutter-restful-api.herokuapp.com/api/v1/'
       fetch(url)
       .then((resp) => resp.json())
       .then(function (data) {
@@ -118,16 +118,20 @@
 			e.preventDefault()
 			console.log('Form submitted')
 
-			var url = 'https://flutter-restful-api.herokuapp.com/api/v1/task-create/'
-      if (activeItem != null){
-				var url = `https://flutter-restful-api.herokuapp.com/api/v1/task-update/${activeItem.id}/`
+			var url = 'https://flutter-restful-api.herokuapp.com/api/v1/'
+			var method = "POST"
+      		if (activeItem != null){
+				var url = `https://flutter-restful-api.herokuapp.com/api/v1/${activeItem.id}/`
 				activeItem = null
+				var method = "PATCH"
 			}
 
-      var title = document.getElementById('title').value
-      var description = document.getElementById('description').value
+     		var title = document.getElementById('title').value
+      		var description = document.getElementById('description').value
+
+
 			fetch(url, {
-				method:'POST',
+				method:method,
 				headers:{
 					'Content-type':'application/json',
 					'X-CSRFToken':csrftoken,
@@ -137,7 +141,7 @@
 			).then(function(response){
 				buildList()
 				document.getElementById('form').reset()
-      })
+      		})
 		})
 
     function editItem(item){
@@ -148,7 +152,7 @@
 		}
     function deleteItem(item){
 			console.log('Delete clicked')
-			fetch(`https://flutter-restful-api.herokuapp.com/api/v1/task-delete/${item.id}/`, {
+			fetch(`https://flutter-restful-api.herokuapp.com/${item.id}/`, {
 				method:'DELETE', 
 				headers:{
 					'Content-type':'application/json',
