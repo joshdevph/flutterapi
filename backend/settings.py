@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '$#+a_mf%^r=ta#dabg!gutlw&12w4rlgyuhqb$zl+75ki2c23^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['192.168.254.102', '127.0.0.1', '10.0.2.2']
+ALLOWED_HOSTS = ['192.168.254.102', '127.0.0.1', '10.0.2.2', 'flutter-restful-api.herokuapp.com']
 
 
 # Application definition
