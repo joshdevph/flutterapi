@@ -67,12 +67,7 @@
       var wrapper = document.getElementById('list-wrapper')
       wrapper.innerHTML = ''
       var url = 'https://flutter-restful-api.herokuapp.com/api/v1/task-list/'
-      fetch(url, {
-	mode: 'cors',
-	headers: {
-	'Access-Control-Allow-Origin':'*'
-	}
-	})
+      fetch(url)
       .then((resp) => resp.json())
       .then(function (data) {
         console.log("Data", data)
@@ -132,7 +127,6 @@
       var title = document.getElementById('title').value
       var description = document.getElementById('description').value
 			fetch(url, {
-				mode: 'no-cors',
 				method:'POST',
 				headers:{
 					'Content-type':'application/json',
@@ -155,7 +149,6 @@
     function deleteItem(item){
 			console.log('Delete clicked')
 			fetch(`https://flutter-restful-api.herokuapp.com/api/v1/task-delete/${item.id}/`, {
-				mode:'no-cors',
 				method:'DELETE', 
 				headers:{
 					'Content-type':'application/json',
